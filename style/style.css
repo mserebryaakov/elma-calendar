@@ -1,0 +1,25 @@
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@400;600&display=swap');
+
+body {
+    background-color: #f4f4f4;
+    font-family: Oswald;
+}
+
+button {
+    background: white;
+    font-family: Oswald;
+    font-size: 10pt;
+}
+
+input {
+    background: white;
+    border: 1px solid;
+    height: 15px;
+}
+
+.app-wrapper {
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+
+    grid-template-areas: "calendar" "backlog";
+}

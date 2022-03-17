@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ru">
+    <head>
+        <meta charset="utf-8" />
+        <title>Calendar</title>
+        <link rel="stylesheet" type="text/css" href="style/style.css">
+        <link rel="stylesheet" type="text/css" href="style/calendar.css">
+        <link rel="stylesheet" type="text/css" href="style/backlog.css">
+        <link rel="stylesheet" type="text/css" href="style/line-grid.css">  
+    </head>
+    <body>
+        <div class="app-wrapper">
+            <div class="calendar">
+                <div class="calendar__button-panel">
+                    <button>Раньше</button>
+                    <button>Позже</button>
+                </div>
+                <div class="calendar__lines-panel">
+                    <div class="calendar__lines-dates line-grid">
+
+                    </div>
+                    <div class="calendar__lines-user">
+                        
+                    </div>
+                </div>
+            </div>
+            <div class="backlog">
+                <div class="backlog__name">
+                    <p>Backlog</p>
+                </div>
+                <div class="backlog__search">
+                    <input type="text">
+                </div>
+                <div class="backlog__tasks">
+                    <div class="backlog__tasks-item">
+                        <p>Name task</p>
+                        <p>Text task</p>
+                    </div>
+                    <div class="backlog__tasks-item">
+                        <p>Name task</p>
+                        <p>Text task</p>
+                    </div>
+                </div>
+            </div> 
+        </div>
+
+        <script src="./scripts/api/request.js"></script>
+        <script src="./scripts/component/date.js"></script>
+        <script src="./scripts/component/backlog.js"></script>
+        <script src="./scripts/component/calendar.js"></script>
+        <script src="main.js"></script>
+    </body>
+</html>

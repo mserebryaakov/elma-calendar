@@ -1,0 +1,27 @@
+.calendar {
+    border: 1px dashed black;
+    display: grid;
+    grid-template-rows: 50px 1fr;
+
+    grid-template-areas:
+     "calendar__button-panel" 
+     "calendar__tabel-panel";
+}
+
+.calendar__button-panel {
+    border: 1px dashed black;
+}
+
+.calendar__lines-panel {
+    border: 1px dashed black;
+    background-color: white;
+}
+
+.calendar__lines-user{
+    border: 1px dashed black;
+}
+
+.calendar__lines-dates {
+    border: 1px dashed black;
+    height: 30px;
+}

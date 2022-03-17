@@ -1,0 +1,9 @@
+.line-grid {
+    border: 1px dashed black;
+    display: grid;
+    grid-template-columns: repeat(8,1fr);
+
+    grid-template-areas:
+     "line-grid_user" "line-grid_day1" "line-grid_day2" "line-grid_day3" "line-grid_day4" "line-grid_day5" "line-grid_day6" "line-grid_day7";
+
+}

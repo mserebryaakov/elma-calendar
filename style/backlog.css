@@ -1,0 +1,29 @@
+.backlog {
+    border: 1px dashed black;
+
+    display: grid;
+    grid-template-rows: 50px 30px 1fr;
+
+    grid-template-areas:
+     "backlog__name" 
+     "backlog__search"
+     "backlog__tasks";
+
+    background-color: white;
+}
+
+.backlog__name {
+    border: 1px dashed black;
+}
+
+.backlog__search {
+    border: 1px dashed black;
+}
+
+.backlog__tasks {
+    border: 1px dashed black;
+}
+
+.backlog__tasks-item {
+    border: 1px dashed red;
+}
