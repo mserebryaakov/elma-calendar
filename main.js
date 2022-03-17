@@ -45,17 +45,30 @@ class Storage {
         })
     }
 
-    deleteBacklogItemById(id) {
-        this.backlog = this.backlog.filter(item => item.id !== id)
+    deleteBacklogItemById(taskId) {
+        this.backlog = this.backlog.filter(item => item.id !== taskId);
     }
 
-    addTaskForUser(task) {
-        //логика
+    addTaskForUser(taskId, userId) {
+        this.users.forEach((user) => {
+            if (user.id == userId) {
+                this.backlog.forEach((task) => {
+                    if (task.id === taskId) {
+                        user.tasks.push(task);
+                    }
+                })
+            }
+        })
     }
 }
 
 function render(storage) {
     updateDateInTable(storage.dates);
+    updateUsersInTable(storage.users, storage.dates);
+    updateBacklog(storage.backlog);
+}
+
+function rerender(storage) {
     updateUsersInTable(storage.users, storage.dates);
     updateBacklog(storage.backlog);
 }
@@ -69,3 +82,16 @@ let beforeRender = async (appStorage) => {
 beforeRender(appStorage).then(() => {
     render(appStorage);
 })
+
+//Посредники
+function brokerRerender() {
+    rerender(appStorage);
+}
+
+function brokerAddTaskForUser(taskId, userId) {
+    appStorage.addTaskForUser(taskId, userId);
+}
+
+function brokerDeleteBacklogItemById(taskId) {
+    appStorage.deleteBacklogItemById(taskId);
+}

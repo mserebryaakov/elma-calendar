@@ -1,5 +1,5 @@
 const usersLine = document.querySelector(".calendar__lines-user");
-let calendarZone = null;
+let calendarZoneUser = null;
 
 //Draggable
 function allowDrop(event) {
@@ -7,46 +7,52 @@ function allowDrop(event) {
 }
 
 function drop(event) {
-    let itemId = event.dataTransfer.getData("id");
-    event.target.append(document.getElementById(itemId));
-    console.log(itemId);
+    let taskId = event.dataTransfer.getData("id");
+    let userId = event.target.id;
+    brokerAddTaskForUser(taskId, userId);
+    brokerDeleteBacklogItemById(taskId);
+    console.log(taskId);
+    console.log(userId);
+    brokerRerender();
 }
 
 function updateDraggableCalendarZone() {
-    calendarZone = document.querySelectorAll(".calendar__zone");
-    calendarZone.forEach((item) => {
+    calendarZoneUser = document.querySelectorAll(".calendar__zone-user");
+    calendarZoneUser.forEach((item) => {
         item.ondragover = allowDrop;
         item.ondrop = drop;
     })
 }
 
-function createDayItem(taskForDay) {
+function createDayItem(taskForDay,userId) {
     let resultHTML = "";
     for (let day = 1; day < 8; day++) {
         let resultDayHTML = "";
         taskForDay[day-1].forEach((item)=>{
             resultDayHTML += `<div>${item.subject}</div>`;
         })
-        resultHTML += `<div class="line-grid_day${day} calendar__zone">${resultDayHTML}</div>`;
+        resultHTML += `<div class="line-grid_day${day} calendar__zone-day" id="${userId}-${day}">${resultDayHTML}</div>`;
     }
     return resultHTML;
 }
 
-function createUserLine(firstName, surname, lineUser) {
+function createUserLine(firstName, surname, lineUser,userId) {
     return (`
         <div class="line-grid line-grid_users">
-            <div class="line-grid_user">${firstName} ${surname}</div>
+            <div class="line-grid_user calendar__zone-user" id="${userId}">${firstName} ${surname}</div>
             ${lineUser}          
         </div>
     `)
 }
 
 //Проверено
-function tasksForDay(queueWeek, taskForDay,dates) {
+function tasksForDay(queueWeek,dates) {
+    let tasksForDay = [ [], [], [], [], [], [],[]]
     queueWeek.forEach((item) => {
         let date = item.planStartDate.split("-");
-        taskForDay[date[2]-dates[0].day].push(item);
+        tasksForDay[date[2]-dates[0].day].push(item);
     })
+    return tasksForDay;
 }
 
 
@@ -69,10 +75,10 @@ function updateUsersInTable(users, dates) {
         let lineUser = "";
         if (user.tasks.length !== 0) {
             user.tasksForWeek = tasksForWeek(user.tasks, dates);
-            tasksForDay(user.tasksForWeek,user.tasksForDay, dates);
+            user.tasksForDay = tasksForDay(user.tasksForWeek, dates);
         }
-        lineUser = createDayItem(user.tasksForDay);
-        usersLine.innerHTML += createUserLine(user.firstName, user.surname, lineUser);
+        lineUser = createDayItem(user.tasksForDay, user.id);
+        usersLine.innerHTML += createUserLine(user.firstName, user.surname, lineUser, user.id);
     })
     updateDraggableCalendarZone();
 }
