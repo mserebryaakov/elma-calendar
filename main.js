@@ -49,16 +49,46 @@ class Storage {
         this.backlog = this.backlog.filter(item => item.id !== taskId);
     }
 
-    addTaskForUser(taskId, userId) {
+    addTaskForUser(taskId, userId, day = null) {
         this.users.forEach((user) => {
             if (user.id == userId) {
                 this.backlog.forEach((task) => {
                     if (task.id === taskId) {
+                        if (day !== null) {
+                            this.changeDateOnTask(task, day);
+                        }
                         user.tasks.push(task);
                     }
                 })
             }
         })
+    }
+
+    changeDateOnTask(task, day) {
+        task.planStartDate = `${this.dates[day-1].year}-${this.dates[day-1].month}-${this.dates[day-1].day}`;
+    }
+
+    checkWorkload(userId, day) {
+        let flag = false;
+        this.users.forEach((user) => {
+            if (user.id == userId) {
+                if (user.tasksForDay[day-1].length < 3) {
+                    flag = true;
+                } 
+            }
+        })
+        return flag;
+    }
+
+    searchTaskDayById(taskId) {
+        let day = null;
+        this.backlog.forEach((task) => {
+            if (task.id === taskId) {
+                let date = task.planStartDate.split("-");
+                day = date[2];
+            }
+        })
+        return day;
     }
 }
 
@@ -88,10 +118,18 @@ function brokerRerender() {
     rerender(appStorage);
 }
 
-function brokerAddTaskForUser(taskId, userId) {
-    appStorage.addTaskForUser(taskId, userId);
+function brokerAddTaskForUser(taskId, userId, day = null) {
+    appStorage.addTaskForUser(taskId, userId, day);
 }
 
 function brokerDeleteBacklogItemById(taskId) {
     appStorage.deleteBacklogItemById(taskId);
+}
+
+function brokerCheckWorkload(userId, day) {
+    return appStorage.checkWorkload(userId, day);
+}
+
+function brokerSearchTaskDayById(taskId) {
+    return appStorage.searchTaskDayById(taskId) - appStorage.dates[0].day + 1;
 }

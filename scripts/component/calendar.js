@@ -1,26 +1,50 @@
 const usersLine = document.querySelector(".calendar__lines-user");
 let calendarZoneUser = null;
+let calendarZoneDay = null;
 
 //Draggable
 function allowDrop(event) {
     event.preventDefault();
 }
 
-function drop(event) {
+function dropInUser(event) {
     let taskId = event.dataTransfer.getData("id");
+    let day = brokerSearchTaskDayById(taskId);
+    console.log(day);
     let userId = event.target.id;
-    brokerAddTaskForUser(taskId, userId);
-    brokerDeleteBacklogItemById(taskId);
-    console.log(taskId);
-    console.log(userId);
-    brokerRerender();
+    if (brokerCheckWorkload(userId, day)) {
+        brokerAddTaskForUser(taskId, userId);
+        brokerDeleteBacklogItemById(taskId);
+        console.log(taskId);
+        console.log(userId);
+        brokerRerender();
+    }
+}
+
+function dropInDay(event) {
+    let taskId = event.dataTransfer.getData("id");
+    let sectionDay = event.target.id;
+    console.log(sectionDay);
+    let [userId, day] = sectionDay.split("-");
+    if (brokerCheckWorkload(userId, day)) {
+        brokerAddTaskForUser(taskId, userId, day);
+        brokerDeleteBacklogItemById(taskId);
+        console.log(userId + "-" + day);
+        brokerRerender();
+    }
 }
 
 function updateDraggableCalendarZone() {
     calendarZoneUser = document.querySelectorAll(".calendar__zone-user");
     calendarZoneUser.forEach((item) => {
         item.ondragover = allowDrop;
-        item.ondrop = drop;
+        item.ondrop = dropInUser;
+    })
+
+    calendarZoneDay = document.querySelectorAll(".calendar__zone-day");
+    calendarZoneDay.forEach((item) => {
+        item.ondragover = allowDrop;
+        item.ondrop = dropInDay;
     })
 }
 
