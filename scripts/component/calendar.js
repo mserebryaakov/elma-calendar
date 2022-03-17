@@ -1,20 +1,40 @@
 const usersLine = document.querySelector(".calendar__lines-user");
+let calendarZone = null;
+
+//Draggable
+function allowDrop(event) {
+    event.preventDefault();
+}
+
+function drop(event) {
+    let itemId = event.dataTransfer.getData("id");
+    event.target.append(document.getElementById(itemId));
+    console.log(itemId);
+}
+
+function updateDraggableCalendarZone() {
+    calendarZone = document.querySelectorAll(".calendar__zone");
+    calendarZone.forEach((item) => {
+        item.ondragover = allowDrop;
+        item.ondrop = drop;
+    })
+}
 
 function createDayItem(taskForDay) {
-    let resultHTML;
+    let resultHTML = "";
     for (let day = 1; day < 8; day++) {
         let resultDayHTML = "";
         taskForDay[day-1].forEach((item)=>{
             resultDayHTML += `<div>${item.subject}</div>`;
         })
-        resultHTML += `<div class="line-grid_day${day}">${resultDayHTML}</div>`;
+        resultHTML += `<div class="line-grid_day${day} calendar__zone">${resultDayHTML}</div>`;
     }
     return resultHTML;
 }
 
 function createUserLine(firstName, surname, lineUser) {
     return (`
-        <div class="line-grid">
+        <div class="line-grid line-grid_users">
             <div class="line-grid_user">${firstName} ${surname}</div>
             ${lineUser}          
         </div>
@@ -50,10 +70,11 @@ function updateUsersInTable(users, dates) {
         if (user.tasks.length !== 0) {
             user.tasksForWeek = tasksForWeek(user.tasks, dates);
             tasksForDay(user.tasksForWeek,user.tasksForDay, dates);
-            lineUser = createDayItem(user.tasksForDay);
         }
+        lineUser = createDayItem(user.tasksForDay);
         usersLine.innerHTML += createUserLine(user.firstName, user.surname, lineUser);
     })
+    updateDraggableCalendarZone();
 }
 
 //Сравнение даты
@@ -77,5 +98,3 @@ function inRange(d,start,end) {
         NaN
     );
 }
-
-// export {updateUsersInTable};

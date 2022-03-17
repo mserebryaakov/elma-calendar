@@ -17,5 +17,3 @@ function updateDateInTable(dates) {
     datesLine.innerHTML = "";
     datesLine.innerHTML += createDateLine(dates);
 }
-
-// export {updateDateInTable};

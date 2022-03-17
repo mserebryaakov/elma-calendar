@@ -19,5 +19,3 @@ const getTasks = async () => {
         throw new HttpError(response);
     }
 }
-
-// export {getUsers,getTasks};
