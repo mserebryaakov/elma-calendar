@@ -1,6 +1,5 @@
 .backlog {
-    border: 1px dashed black;
-
+    border: 1px solid black;
     display: grid;
     grid-template-rows: 50px 30px 1fr;
 
@@ -13,21 +12,20 @@
 }
 
 .backlog__name {
-    border: 1px dashed black;
+    text-align: center;
+    vertical-align: middle;
+    font-size: 24pt;
 }
 
 .backlog__search {
-    border: 1px dashed black;
-}
-
-.backlog__tasks {
-    border: 1px dashed black;
-}
-
-.backlog__tasks-item {
-    border: 1px dashed red;
+    text-align: center;
 }
 
 .backlog__hide {
     display: none;
+}
+
+.backlog__tasks-item {
+    border: 1px solid black;
+    margin: 0 0.5em 0.5em 0.5em;
 }

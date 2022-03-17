@@ -1,5 +1,5 @@
 .line-grid {
-    border: 1px dashed black;
+    border-bottom: 1px solid black;
     display: grid;
     grid-template-columns: repeat(8,1fr);
 
@@ -8,5 +8,5 @@
 }
 
 .line-grid_users {
-    height: 120px;
+    height: 25vh;
 }

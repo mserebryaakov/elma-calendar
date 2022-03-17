@@ -1,5 +1,4 @@
 .calendar {
-    border: 1px dashed black;
     display: grid;
     grid-template-rows: 50px 1fr;
 
@@ -8,20 +7,27 @@
      "calendar__tabel-panel";
 }
 
-.calendar__button-panel {
-    border: 1px dashed black;
-}
-
 .calendar__lines-panel {
-    border: 1px dashed black;
+    border: 1px solid black;
+    border-right: none;
     background-color: white;
 }
 
-.calendar__lines-user{
-    border: 1px dashed black;
+.calendar__lines-dates {
+    height: 25px;
+    border-bottom: 1px solid black;
 }
 
-.calendar__lines-dates {
-    border: 1px dashed black;
-    height: 30px;
+.calendar div {
+    text-align: center;
+}
+
+.calendar__button-panel {
+    display: flex;
+    justify-content: space-between;
+}
+
+.user-task-for-day {
+    border: 1px solid black;
+    margin: 0.1em;
 }
