@@ -27,3 +27,7 @@
 .backlog__tasks-item {
     border: 1px dashed red;
 }
+
+.backlog__hide {
+    display: none;
+}
