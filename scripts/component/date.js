@@ -1,4 +1,14 @@
 const datesLine = document.querySelector(".calendar__lines-dates");
+const buttonNextWeek = document.querySelector(".calendar__button_right");
+const buttonPreviousWeek = document.querySelector(".calendar__button_left");
+
+buttonNextWeek.onclick = () => {
+    brokerOnClickNextWeek();
+}
+
+buttonPreviousWeek.onclick = () => {
+    brokerOnClickPreviousWeek();
+}
 
 function createDateLine(dates) {
     return (`

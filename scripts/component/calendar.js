@@ -9,14 +9,11 @@ function allowDrop(event) {
 
 function dropInUser(event) {
     let taskId = event.dataTransfer.getData("id");
-    let day = brokerSearchTaskDayById(taskId);
-    console.log(day);
+    let date = brokerSearchTaskDayById(taskId);
     let userId = event.target.id;
-    if (brokerCheckWorkload(userId, day)) {
+    if (brokerCheckWorkloadInDate(userId, date) < 3) {
         brokerAddTaskForUser(taskId, userId);
         brokerDeleteBacklogItemById(taskId);
-        console.log(taskId);
-        console.log(userId);
         brokerRerender();
     }
 }
@@ -24,12 +21,10 @@ function dropInUser(event) {
 function dropInDay(event) {
     let taskId = event.dataTransfer.getData("id");
     let sectionDay = event.target.id;
-    console.log(sectionDay);
     let [userId, day] = sectionDay.split("-");
-    if (brokerCheckWorkload(userId, day)) {
+    if (brokerCheckWorkloadOnDayThisWeek(userId, day)) {
         brokerAddTaskForUser(taskId, userId, day);
         brokerDeleteBacklogItemById(taskId);
-        console.log(userId + "-" + day);
         brokerRerender();
     }
 }
@@ -74,7 +69,10 @@ function tasksForDay(queueWeek,dates) {
     let tasksForDay = [ [], [], [], [], [], [],[]]
     queueWeek.forEach((item) => {
         let date = item.planStartDate.split("-");
-        tasksForDay[date[2]-dates[0].day].push(item);
+        let index = date[2]-dates[0].day;
+        if (index < 7 && index >= 0) {
+            tasksForDay[index].push(item);
+        }
     })
     return tasksForDay;
 }

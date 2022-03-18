@@ -14,6 +14,7 @@ class Storage {
     }
 
     setDates() {
+        this.dates = [];
         for ( let i=0; i < 7; i++) {
             this.dates.push({month: this.now.getMonth()+1,  day: this.now.getDate(), year: this.now.getFullYear()});
             this.now.setDate(this.now.getDate()+1);
@@ -65,10 +66,30 @@ class Storage {
     }
 
     changeDateOnTask(task, day) {
-        task.planStartDate = `${this.dates[day-1].year}-${this.dates[day-1].month}-${this.dates[day-1].day}`;
+        let monthWithZero = this.dates[day-1].month < 10? "0" + String(this.dates[day-1].month) : this.dates[day-1].month;
+        let dayWithZero = this.dates[day-1].day < 10? "0" + String(this.dates[day-1].day) : this.dates[day-1].day;
+        task.planStartDate = `${this.dates[day-1].year}-${monthWithZero}-${dayWithZero}`;
     }
 
-    checkWorkload(userId, day) {
+    checkWorkloadInDate(userId, date, day = null) {
+        let countTask = 0;
+        this.users.forEach((user) => {
+            if (user.id == userId) {
+                console.log("зашёл в checkWordLoad")
+                user.tasks.forEach((task) => {
+                    console.log("захожу сравнивать date - " + date);
+                    console.log("c task.planStartDate - " + task.planStartDate);
+                    if (date == task.planStartDate) {
+                        countTask += 1;
+                    }
+                })
+            }
+        })
+        console.log("countTask " + countTask);
+        return countTask;
+    }
+
+    checkWorkloadOnDayThisWeek(userId, day) {
         let flag = false;
         this.users.forEach((user) => {
             if (user.id == userId) {
@@ -81,14 +102,23 @@ class Storage {
     }
 
     searchTaskDayById(taskId) {
-        let day = null;
+        let date = null;
         this.backlog.forEach((task) => {
             if (task.id === taskId) {
-                let date = task.planStartDate.split("-");
-                day = date[2];
+                date = task.planStartDate;
             }
         })
-        return day;
+        console.log("serachTaskById" + date);
+        return date;
+    }
+
+    nextWeek() {
+        this.setDates();
+    }
+
+    previousWeek() {
+        this.now.setDate(this.now.getDate()-14);
+        this.setDates();
     }
 }
 
@@ -114,6 +144,16 @@ beforeRender(appStorage).then(() => {
 })
 
 //Посредники
+function brokerOnClickNextWeek() {
+    appStorage.nextWeek();
+    render(appStorage);
+}
+
+function brokerOnClickPreviousWeek() {
+    appStorage.previousWeek();
+    render(appStorage);
+}
+
 function brokerRerender() {
     rerender(appStorage);
 }
@@ -126,10 +166,14 @@ function brokerDeleteBacklogItemById(taskId) {
     appStorage.deleteBacklogItemById(taskId);
 }
 
-function brokerCheckWorkload(userId, day) {
-    return appStorage.checkWorkload(userId, day);
+function brokerCheckWorkloadInDate(userId, date) {
+    return appStorage.checkWorkloadInDate(userId, date);
+}
+
+function brokerCheckWorkloadOnDayThisWeek(userId, day) {
+    return appStorage.checkWorkloadOnDayThisWeek(userId, day);
 }
 
 function brokerSearchTaskDayById(taskId) {
-    return appStorage.searchTaskDayById(taskId) - appStorage.dates[0].day + 1;
+    return appStorage.searchTaskDayById(taskId);
 }
