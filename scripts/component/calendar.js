@@ -48,7 +48,13 @@ function createDayItem(taskForDay,userId) {
     for (let day = 1; day < 8; day++) {
         let resultDayHTML = "";
         taskForDay[day-1].forEach((item)=>{
-            resultDayHTML += `<div class="user-task-for-day">${item.subject}</div>`;
+            resultDayHTML += `<div 
+                class="user-task-for-day"
+                data-title="
+                creationDate: ${item.creationDate}; 
+                planEndDate: ${item.planEndDate}">
+            ${item.subject}
+            </div>`;
         })
         resultHTML += `<div class="line-grid_day${day} calendar__zone-day" id="${userId}-${day}">${resultDayHTML}</div>`;
     }

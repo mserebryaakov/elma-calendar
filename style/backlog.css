@@ -29,3 +29,15 @@
     border: 1px solid black;
     margin: 0 0.5em 0.5em 0.5em;
 }
+
+@media screen and (max-width: 1023px) {
+    .backlog {
+        visibility: hidden;
+        display: none;
+    }
+    .app-wrapper {
+        grid-template-columns: 1fr;
+    
+        grid-template-areas: "calendar";
+    }
+}

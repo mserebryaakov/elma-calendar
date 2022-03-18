@@ -75,17 +75,13 @@ class Storage {
         let countTask = 0;
         this.users.forEach((user) => {
             if (user.id == userId) {
-                console.log("зашёл в checkWordLoad")
                 user.tasks.forEach((task) => {
-                    console.log("захожу сравнивать date - " + date);
-                    console.log("c task.planStartDate - " + task.planStartDate);
                     if (date == task.planStartDate) {
                         countTask += 1;
                     }
                 })
             }
         })
-        console.log("countTask " + countTask);
         return countTask;
     }
 
@@ -108,7 +104,6 @@ class Storage {
                 date = task.planStartDate;
             }
         })
-        console.log("serachTaskById" + date);
         return date;
     }
 

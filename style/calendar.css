@@ -28,6 +28,23 @@
 }
 
 .user-task-for-day {
+    width: 98%;
     border: 1px solid black;
     margin: 0.1em;
+    display: inline-block;
+    position: relative;
+}
+
+.user-task-for-day:hover::after {
+    content: attr(data-title);
+    position:absolute;
+    left: 15%; top: 30%;
+    z-index: 1;
+    font-size: 11px;
+    border:1px solid black;
+    background-color: white;;
+}
+
+.calendar__zone-day {
+    height: 25vh;
 }
