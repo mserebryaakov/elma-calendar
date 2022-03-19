@@ -56,3 +56,21 @@
 .not-overloaded-day {
     background-color: rgb(228, 255, 228);
 }
+
+@media (max-width: 1084px) {
+    .calendar {
+        grid-template-rows: 100px 1fr;
+    }
+    .calendar__lines-dates {
+        height: 50px;
+    }
+    .calendar__zone-day {
+        height: 18vh;
+    }
+    .user-task-for-day {
+        font-size: 13pt;
+    }
+    .calendar button {
+        width: 100%;
+    }
+}

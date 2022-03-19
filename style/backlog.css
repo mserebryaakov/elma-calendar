@@ -34,7 +34,7 @@
     text-align:center;
 }
 
-@media screen and (max-width: 1084px) {
+@media (max-width: 1084px) {
     .backlog {
         visibility: hidden;
         display: none;

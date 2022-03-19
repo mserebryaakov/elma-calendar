@@ -10,3 +10,9 @@
 .line-grid_users {
     height: 25vh;
 }
+
+@media (max-width: 1084px) {
+    .line-grid_users {
+        height: 18vh;
+    }
+}

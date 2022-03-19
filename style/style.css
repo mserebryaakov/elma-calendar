@@ -23,3 +23,12 @@ input {
 
     grid-template-areas: "calendar" "backlog";
 }
+
+@media (max-width: 1084px) {
+    body {
+        font-size: 16pt;
+    }
+    button {
+        font-size: 14pt;
+    }
+}
