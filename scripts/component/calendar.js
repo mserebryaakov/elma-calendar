@@ -7,6 +7,7 @@ function allowDrop(event) {
     event.preventDefault();
 }
 
+//Drop задачи на пользователя
 function dropInUser(event) {
     let taskId = event.dataTransfer.getData("id");
     let date = brokerSearchTaskDayById(taskId);
@@ -18,6 +19,7 @@ function dropInUser(event) {
     }
 }
 
+//Drop задачи на день
 function dropInDay(event) {
     let taskId = event.dataTransfer.getData("id");
     let sectionDay = event.target.id;
@@ -29,6 +31,7 @@ function dropInDay(event) {
     }
 }
 
+//Прикрепление ondragstart к draggable элементам (пользователям и дням) в зоне календаря
 function updateDraggableCalendarZone() {
     calendarZoneUser = document.querySelectorAll(".calendar__zone-user");
     calendarZoneUser.forEach((item) => {
@@ -43,6 +46,7 @@ function updateDraggableCalendarZone() {
     })
 }
 
+//Создание html разметки для дня в календаре
 function createDayItem(taskForDay,userId) {
     let resultHTML = "";
     for (let day = 1; day < 8; day++) {
@@ -61,6 +65,7 @@ function createDayItem(taskForDay,userId) {
     return resultHTML;
 }
 
+//Создание html разметки для пользователя на неделю
 function createUserLine(firstName, surname, lineUser,userId) {
     return (`
         <div class="line-grid line-grid_users">
@@ -70,33 +75,34 @@ function createUserLine(firstName, surname, lineUser,userId) {
     `)
 }
 
-//Проверено
+//Генерация задач на каждый день в неделе
 function tasksForDay(queueWeek,dates) {
     let tasksForDay = [ [], [], [], [], [], [],[]]
     queueWeek.forEach((item) => {
         let date = item.planStartDate.split("-");
-        let index = date[2]-dates[0].day;
-        if (index < 7 && index >= 0) {
-            tasksForDay[index].push(item);
-        }
+        dates.forEach((dateItem, index) => {
+            if (date[2] == dateItem.day) {
+                tasksForDay[index].push(item);
+            }
+        })
     })
     return tasksForDay;
 }
 
 
-//Проверено
+//Генерация задач на неделю
 function tasksForWeek(queue, dates) {
+    let start = new Date(dates[0].year, dates[0].month, dates[0].day)
+    let stop = new Date(dates[6].year, dates[6].month, dates[6].day)
     return queue.filter((item) => {
         let date = item.planStartDate.split("-");
         let taskDate = new Date(date[0],date[1],date[2]);
-        let start = new Date(dates[0].year, dates[0].month, dates[0].day)
-        let stop = new Date(dates[6].year, dates[6].month, dates[6].day)
         return inRange(taskDate,start,stop);
     })
 }
 
 
-//Проверено
+//Обновление календаря
 function updateUsersInTable(users, dates) {
     usersLine.innerHTML = ""
     users.forEach((user)=>{

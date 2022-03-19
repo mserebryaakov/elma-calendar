@@ -30,6 +30,10 @@
     margin: 0 0.5em 0.5em 0.5em;
 }
 
+.backlog-input {
+    text-align:center;
+}
+
 @media screen and (max-width: 1023px) {
     .backlog {
         visibility: hidden;

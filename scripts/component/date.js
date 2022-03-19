@@ -10,6 +10,7 @@ buttonPreviousWeek.onclick = () => {
     brokerOnClickPreviousWeek();
 }
 
+//Создание html разметки панели дат
 function createDateLine(dates) {
     return (`
         <div class="line-grid_user">Имя</div>
@@ -23,6 +24,7 @@ function createDateLine(dates) {
     `);
 }
 
+//Обновление панели дат
 function updateDateInTable(dates) {
     datesLine.innerHTML = "";
     datesLine.innerHTML += createDateLine(dates);
