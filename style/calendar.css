@@ -28,7 +28,7 @@
 }
 
 .user-task-for-day {
-    width: 98%;
+    width: 94%;
     border: 1px solid black;
     margin: 0.1em;
     display: inline-block;
@@ -47,4 +47,12 @@
 
 .calendar__zone-day {
     height: 25vh;
+}
+
+.overloaded-day {
+    background-color: rgb(253, 226, 226);
+}
+
+.not-overloaded-day {
+    background-color: rgb(228, 255, 228);
 }

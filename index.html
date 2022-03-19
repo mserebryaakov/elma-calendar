@@ -3,12 +3,16 @@
     <head>
         <meta charset="utf-8" />
         <title>Calendar</title>
+        <link rel="stylesheet" type="text/css" href="style/preloader.css">
         <link rel="stylesheet" type="text/css" href="style/style.css">
         <link rel="stylesheet" type="text/css" href="style/calendar.css">
         <link rel="stylesheet" type="text/css" href="style/backlog.css">
         <link rel="stylesheet" type="text/css" href="style/line-grid.css">  
     </head>
     <body>
+        <div class="preloader">
+            <div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
+        </div>
         <div class="app-wrapper">
             <div class="calendar">
                 <div class="calendar__button-panel">
@@ -37,6 +41,7 @@
             </div> 
         </div>
 
+        <script src="./scripts/component/preloader.js"></script>
         <script src="./scripts/api/request.js"></script>
         <script src="./scripts/component/date.js"></script>
         <script src="./scripts/component/backlog.js"></script>

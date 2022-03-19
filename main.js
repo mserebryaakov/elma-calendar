@@ -149,6 +149,7 @@ let beforeRender = async (appStorage) => {
 
 beforeRender(appStorage).then(() => {
     render(appStorage);
+    endGetDate();
 })
 
 //Посредники

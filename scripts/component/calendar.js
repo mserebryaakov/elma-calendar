@@ -50,8 +50,11 @@ function updateDraggableCalendarZone() {
 function createDayItem(taskForDay,userId) {
     let resultHTML = "";
     for (let day = 1; day < 8; day++) {
+        let overloadedDay = "";
+        let countTasks = 0;
         let resultDayHTML = "";
         taskForDay[day-1].forEach((item)=>{
+            countTasks += 1;
             resultDayHTML += `<div 
                 class="user-task-for-day"
                 data-title="
@@ -60,7 +63,9 @@ function createDayItem(taskForDay,userId) {
             ${item.subject}
             </div>`;
         })
-        resultHTML += `<div class="line-grid_day${day} calendar__zone-day" id="${userId}-${day}">${resultDayHTML}</div>`;
+        if (countTasks > 0) overloadedDay = "not-overloaded-day";
+        if (countTasks === 3) overloadedDay = "overloaded-day";
+        resultHTML += `<div class="line-grid_day${day} calendar__zone-day ${overloadedDay}" id="${userId}-${day}">${resultDayHTML}</div>`;
     }
     return resultHTML;
 }
