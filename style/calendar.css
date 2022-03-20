@@ -14,7 +14,7 @@
 }
 
 .calendar__lines-dates {
-    height: 25px;
+    /* height: 25px; */
     border-bottom: 1px solid black;
 }
 
@@ -46,7 +46,7 @@
 }
 
 .calendar__zone-day {
-    height: 25vh;
+    min-height: 25vh;
 }
 
 .overloaded-day {
@@ -58,17 +58,23 @@
 }
 
 @media (max-width: 1084px) {
+    body {
+        font-size: 10pt;
+    }
+    button {
+        font-size: 18pt;
+    }
     .calendar {
         grid-template-rows: 100px 1fr;
     }
     .calendar__lines-dates {
-        height: 50px;
+        font-size: 10pt;
     }
     .calendar__zone-day {
-        height: 18vh;
+        min-height: 10vh;
     }
     .user-task-for-day {
-        font-size: 13pt;
+        font-size: 14pt;
     }
     .calendar button {
         width: 100%;
